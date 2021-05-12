@@ -6,8 +6,13 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - user-client',
-    title: 'user-client',
+    titleTemplate: (title) => {
+      if (Array.isArray(title)) {
+        return `${title[0]} Fábrica de Software ${title[1]}`
+      } else {
+        return `Fábrica de Software ${title}`
+      }
+    },
     htmlAttrs: {
       lang: 'en',
     },
@@ -16,14 +21,21 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      {
+        href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700&display=swap',
+        rel: 'stylesheet',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/notification.ts'],
+  plugins: ['~/plugins/notification.ts', '~/plugins/font-awesome.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -56,7 +68,7 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: colors.blue.darken2,
+          primary: '#FF9700',
           accent: colors.grey.darken3,
         },
       },
@@ -65,4 +77,13 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'login',
+        path: '/',
+        component: resolve(__dirname, 'pages/login'),
+      })
+    },
+  },
 }
