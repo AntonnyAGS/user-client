@@ -1,0 +1,43 @@
+@import '@/assets/colors.scss';
+@import '~vuetify/src/styles/styles.sass';
+
+$content-radius: 8px;
+
+.create-account {
+  --content-inner-padding: 16px;
+
+  width: 100%;
+  height: 100%;
+
+  background: url('@/assets/img/tech-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+
+    background: $g50;
+
+    width: 100%;
+    max-width: 800px;
+
+    border-radius: $content-radius;
+
+    padding: var(--content-inner-padding);
+  }
+
+  &__forgot-password, &__create-account {
+    text-align: center;
+  }
+}
+
+@media #{map-get($display-breakpoints, 'sm-and-up')} {
+  .create-account {
+    --content-inner-padding: 32px;
+  }
+}
