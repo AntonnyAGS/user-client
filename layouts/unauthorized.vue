@@ -13,6 +13,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
   name: 'Unauthorized',
+  middleware: 'isNotAuthenticated',
 })
 </script>
 

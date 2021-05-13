@@ -1,91 +1,104 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
+  <v-app>
+    <side-bar :items="items" />
     <v-main>
-      <v-container>
+      <v-container fluid class="main-container fill-height">
         <nuxt />
+        <notifications ignore-duplicates class="notification" />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light> mdi-repeat </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+// Libs
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+
+// Components
+import SideBar from '@/components/Sidebar'
+
+// Types
+import { SidebarItem } from '@/types'
+
+export default defineComponent({
+  name: 'Layout',
+
+  components: {
+    SideBar,
+  },
+  middleware: 'isAuthenticated',
+
+  setup() {
+    const items = ref<SidebarItem[]>([
+      { to: '/dashboard', icon: 'mdi-home', title: 'home' },
+    ])
+
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js',
+      items,
     }
   },
-}
+})
 </script>
+
+<style lang="scss">
+@import '~vuetify/src/styles/styles.sass';
+@import '@/assets/variables.scss';
+.notification {
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+}
+
+.vue-notification {
+  border-radius: 4px;
+  font-family: Montserrat;
+
+  &.warn {
+    background: #ffb648;
+    border-left-color: #f48a06;
+  }
+
+  &.error {
+    background: #e54d42;
+    border-left-color: #b82e24;
+  }
+
+  &.success {
+    background: #68cd86;
+    border-left-color: #42a85f;
+  }
+}
+.notification-title {
+  // Style for title line
+  font-size: 14px;
+  text-transform: uppercase;
+  // border: 1px solid white;
+}
+
+.notification-content {
+  font-size: 16px;
+}
+html {
+  overflow-y: auto !important;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.main-container {
+  padding: $LAYOUT_PADDING !important;
+}
+
+@media #{map-get($display-breakpoints, 'lg-and-up')} {
+  html {
+    font-size: 16px;
+  }
+  .main-container {
+    padding: $LAYOUT_PADDING * 3 !important;
+  }
+}
+</style>
+<style lang="scss" scoped>
+.v-application {
+  font-family: Montserrat !important;
+}
+</style>
