@@ -27,7 +27,7 @@
         <v-stepper-content class="py-4" step="1">
           <basic-info
             :value="user"
-            @click:submit="currentStep = 2"
+            @click:submit="handleCreateUser"
             @input="$emit('update:user', $event)"
           />
         </v-stepper-content>
@@ -53,7 +53,7 @@
           <summary-info
             :value="project"
             :loading="loading"
-            @click:submit="currentStep = 4"
+            @click:submit="$emit('submit')"
             @click:back="currentStep = 2"
           />
         </v-stepper-content>
@@ -65,10 +65,13 @@
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { Project, UserInput } from '@/types'
+import { UserFactory } from '@/factories'
+import { UserService, AuthService } from '@/services'
 import BasicInfo from './BasicInfo.vue'
 import ProjectInfo from './ProjectInfo.vue'
 import Archives from './Archives.vue'
 import SummaryInfo from './Summary.vue'
+import { useNotify } from '~/hooks/useNotify'
 
 export default defineComponent({
   name: 'Stepper',
@@ -92,9 +95,37 @@ export default defineComponent({
       default: false,
     },
   },
-  setup() {
+  setup(props, { emit }) {
     const currentStep = ref(1)
-    return { currentStep }
+
+    const notify = useNotify()
+
+    const handleCreateUser = async () => {
+      try {
+        emit('update:loading', true)
+        const factory = new UserFactory()
+        const service = new UserService()
+        const authService = new AuthService()
+
+        const createVars = factory.fromInputToVars(props.user)
+
+        const user = await service.register(createVars)
+        await authService.auth({
+          email: user.email,
+          password: props.user.password,
+        })
+        currentStep.value = 2
+      } catch (err) {
+        notify({
+          title: 'Erro ao cadastrar/logar usuário',
+          type: 'error',
+        })
+      } finally {
+        emit('update:loading', false)
+      }
+    }
+
+    return { currentStep, handleCreateUser }
   },
 })
 </script>

@@ -1,17 +1,25 @@
 <template>
   <div class="create-account">
     <div class="create-account__container">
-      <stepper :user.sync="user" :project.sync="project" />
+      <stepper
+        :user.sync="user"
+        :project.sync="project"
+        :loading.sync="loading"
+        @submit="handleCreateProject"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 
 import { Stepper } from '@/components/CreateAccount'
 
 import { UserInput, ProjectInput } from '@/types'
+
+import { ProjectService } from '@/services/ProjectService'
+import { useNotify } from '~/hooks/useNotify'
 
 export default defineComponent({
   components: {
@@ -21,6 +29,10 @@ export default defineComponent({
 
   setup() {
     const showPassword = ref(false)
+
+    const notify = useNotify()
+
+    const { redirect } = useContext()
 
     const user = ref<UserInput>({
       email: '',
@@ -36,7 +48,27 @@ export default defineComponent({
       description: '',
     })
 
-    return { showPassword, user, project }
+    const loading = ref(false)
+
+    const handleCreateProject = async () => {
+      try {
+        loading.value = true
+
+        const service = new ProjectService()
+
+        await service.create(project.value)
+        redirect('/')
+      } catch (err) {
+        notify({
+          title: 'Erro ao cadastrar/logar usuário',
+          type: 'error',
+        })
+      } finally {
+        loading.value = true
+      }
+    }
+
+    return { showPassword, user, project, loading, handleCreateProject }
   },
 })
 </script>

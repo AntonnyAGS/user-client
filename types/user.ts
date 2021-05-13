@@ -9,10 +9,16 @@ export type User = {
   ra?: string
   cpf?: string
   cnpj?: string
-  personType?: PersonType
+  personType: PersonType
   role: UserRole
   phone: string
 }
+
+export type UserVars = Omit<
+  // eslint-disable-next-line camelcase
+  User & { password_repeat: string },
+  'id' | 'createdAt' | 'isAdmin'
+>
 
 export type UserInput = {
   email: ''
