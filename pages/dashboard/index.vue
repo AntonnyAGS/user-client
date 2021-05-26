@@ -142,7 +142,7 @@ export default defineComponent({
       width: 350px;
       font-size: 15px;
       margin-top: 15px;
-    } 
+    }  
     a{
       text-decoration:none;
       color: #FF9700;
