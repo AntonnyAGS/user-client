@@ -5,6 +5,7 @@
         :user.sync="user"
         :project.sync="project"
         :loading.sync="loading"
+        :archives.sync="archives"
         @submit="handleCreateProject"
       />
     </div>
@@ -16,10 +17,11 @@ import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 
 import { Stepper } from '@/components/CreateAccount'
 
-import { UserInput, ProjectInput } from '@/types'
+import { UserInput, ProjectInput, ArchiveInput } from '@/types'
 
-import { ProjectService } from '@/services/ProjectService'
+import { ProjectService, FileService } from '@/services'
 import { useNotify } from '~/hooks/useNotify'
+import { FileFactory } from '~/factories'
 
 export default defineComponent({
   components: {
@@ -48,7 +50,24 @@ export default defineComponent({
       description: '',
     })
 
+    const archives = ref<[ArchiveInput] | []>([])
+
     const loading = ref(false)
+
+    const handleUploadFiles = async (projectId: string) => {
+      try {
+        const files = await FileFactory.fromInputToVars(archives.value)
+
+        const service = new FileService()
+
+        await service.create(projectId, files)
+      } catch (err) {
+        notify({
+          title: 'Erro ao subir arquivos',
+          type: 'error',
+        })
+      }
+    }
 
     const handleCreateProject = async () => {
       try {
@@ -56,11 +75,14 @@ export default defineComponent({
 
         const service = new ProjectService()
 
-        await service.create(project.value)
+        const created = await service.create(project.value)
+
+        handleUploadFiles(created._id)
         redirect('/')
       } catch (err) {
+        console.error(err)
         notify({
-          title: 'Erro ao cadastrar/logar usuário',
+          title: 'Erro ao cadastrar projeto',
           type: 'error',
         })
       } finally {
@@ -68,7 +90,14 @@ export default defineComponent({
       }
     }
 
-    return { showPassword, user, project, loading, handleCreateProject }
+    return {
+      showPassword,
+      user,
+      project,
+      loading,
+      handleCreateProject,
+      archives,
+    }
   },
 })
 </script>

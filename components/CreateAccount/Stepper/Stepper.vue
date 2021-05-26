@@ -43,18 +43,20 @@
 
         <v-stepper-content class="py-4" step="3">
           <archives
+            :value="archives"
             :loading="loading"
             @click:submit="currentStep = 4"
             @click:back="currentStep = 2"
-            @input="$emit('input', $event)"
+            @input="$emit('update:archives', $event)"
           />
         </v-stepper-content>
         <v-stepper-content class="py-4" step="4">
           <summary-info
             :value="project"
+            :archives="archives"
             :loading="loading"
             @click:submit="$emit('submit')"
-            @click:back="currentStep = 2"
+            @click:back="currentStep = 3"
           />
         </v-stepper-content>
       </v-stepper-items>
@@ -64,7 +66,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { Project, UserInput } from '@/types'
+import { ArchiveInput, ProjectInput, UserInput } from '@/types'
 import { UserFactory } from '@/factories'
 import { UserService, AuthService } from '@/services'
 import BasicInfo from './BasicInfo.vue'
@@ -83,11 +85,15 @@ export default defineComponent({
   },
   props: {
     project: {
-      type: Object as () => Project,
+      type: Object as () => ProjectInput,
       required: true,
     },
     user: {
       type: Object as () => UserInput,
+      required: true,
+    },
+    archives: {
+      type: Array as () => ArchiveInput[],
       required: true,
     },
     loading: {
@@ -96,7 +102,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const currentStep = ref(1)
+    const currentStep = ref(3)
 
     const notify = useNotify()
 

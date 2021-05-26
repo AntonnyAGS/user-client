@@ -4,7 +4,7 @@ import { ProjectStatus } from '~/enum'
 export type Project = {
   createdAt: Date | string
   name: string
-  id: string
+  _id: string
   status: ProjectStatus
   description: string
   updateAt: Date

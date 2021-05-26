@@ -21,10 +21,10 @@ export type UserVars = Omit<
 >
 
 export type UserInput = {
-  email: ''
-  phone: ''
+  email: string
+  phone: string
   cpfOrCnpj: string
-  name: ''
-  password: ''
-  confirmPassword: ''
+  name: string
+  password: string
+  confirmPassword: string
 }

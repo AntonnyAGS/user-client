@@ -6,16 +6,12 @@ export class ProjectService {
   async create(project: ProjectInput): Promise<Project> {
     try {
       const token = Cookie.get(process.env.TOKEN)
-      const { data } = await axios.post<{ project: Project }>(
-        '/project',
-        project,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      return data.project
+      const { data } = await axios.post<Project>('/project', project, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      return data
     } catch (error) {
       throw new Error(error.response.data.message)
     }
