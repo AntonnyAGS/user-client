@@ -31,6 +31,8 @@ export default defineComponent({
   setup() {
     const items = ref<SidebarItem[]>([
       { to: '/dashboard', icon: 'mdi-home', title: 'home' },
+      { to: '/dashboard', icon: 'mdi-lightbulb-outline', title: 'Projetos' },
+      { to: '/dashboard', icon: 'mdi-cog-outline', title: 'Configuração' },
     ])
 
     return {
