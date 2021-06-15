@@ -10,7 +10,7 @@
     <div>{{ value.description }}</div>
 
     <div v-if="archives.length > 0" class="d-flex flex-column">
-      <div class="summary__title">Arquivos({{ archives.length }})</div>
+      <div class="summary__title">Arquivos ({{ archives.length }})</div>
       <v-list width="100%">
         <v-list-item
           v-for="(file, index) in archives"
@@ -31,6 +31,7 @@
       type="submit"
       color="primary"
       class="mt-8"
+      :loading="loading"
       @click="handleSubmit"
     >
       Continuar
@@ -56,6 +57,11 @@ export default defineComponent({
     archives: {
       type: Array as () => ArchiveInput[],
       required: true,
+    },
+
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 

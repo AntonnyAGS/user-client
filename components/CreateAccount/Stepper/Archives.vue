@@ -33,6 +33,7 @@
       style="border-radius: 0 !important"
       filled
     />
+
     <div class="d-flex" style="gap: 16px">
       <v-file-input
         v-model="file"
@@ -118,9 +119,7 @@ export default defineComponent({
     }
 
     const addFile = () => {
-      const files = clone(props.value)
-
-      console.log(file.value)
+      const files = props.value
 
       files.push({
         fileName: fileName.value,

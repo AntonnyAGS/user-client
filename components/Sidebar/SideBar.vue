@@ -1,8 +1,20 @@
 <template>
+<<<<<<< Updated upstream
   <v-navigation-drawer :mini-variant.sync="mini" app permanent color="#F5F5F7">
     <v-list-item class="px-2">
       <v-list-item-avatar>
         <v-img src=""></v-img>
+=======
+  <v-navigation-drawer
+    :mini-variant.sync="mini"
+    permanent
+    color="#F5F5F7"
+    fixed
+  >
+    <v-list-item class="px-2">
+      <v-list-item-avatar>
+        <img src="@/assets/img/icon.svg" alt="" />
+>>>>>>> Stashed changes
       </v-list-item-avatar>
 
       <v-list-item-title>Logo</v-list-item-title>
@@ -15,7 +27,7 @@
     <v-divider></v-divider>
 
     <v-list dense>
-      <v-list-item v-for="item in items" :key="item.title" link>
+      <v-list-item v-for="item in items" :key="item.title" class="mt" link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -79,4 +91,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import './style.scss';
+
+.mt {
+  margin-top: 16px;
+}
 </style>
