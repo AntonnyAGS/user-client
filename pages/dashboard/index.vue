@@ -9,7 +9,7 @@
           status dele, e após a finalização você poderá avaliá-lo. E também pode
           adicionar novos projetos.
         </p>
-        <img src="@/assets/img/welcome.png" alt="" />
+        <!-- <img src="@/assets/img/welcome.png" alt="" /> -->
       </div>
     </div>
 
@@ -61,7 +61,7 @@
           <p>Clique no botão abaixo e cadastre um novo projeto.</p>
           <button>CADASTRAR NOVO PROJETO +</button>
         </div>
-        <img src="@/assets/img/ideia.png" alt="" />
+        <!-- <img src="@/assets/img/ideia.png" alt="" /> -->
       </div>
     </div>
   </div>

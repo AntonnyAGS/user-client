@@ -7,7 +7,7 @@
   >
     <v-list-item class="px-2">
       <v-list-item-avatar>
-        <img src="@/assets/img/icon.svg" alt="" />
+        <!-- <img src="@/assets/img/icon.svg" alt="" /> -->
       </v-list-item-avatar>
 
       <v-list-item-title>Logo</v-list-item-title>

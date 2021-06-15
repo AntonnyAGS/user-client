@@ -6,7 +6,7 @@
         :project.sync="project"
         :loading.sync="loading"
         :archives.sync="archives"
-        @submit="handleUploadFiles"
+        @submit="handleCreateProject"
       />
     </div>
   </div>
@@ -93,7 +93,6 @@ export default defineComponent({
 
         redirect('/')
       } catch (err) {
-        console.error(err)
         notify({
           title: 'Erro ao cadastrar projeto',
           type: 'error',

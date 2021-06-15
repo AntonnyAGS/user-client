@@ -44,6 +44,7 @@
         style="border-radius: 0 !important"
         filled
         :show-size="1000"
+        accept="image/*,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf"
       />
       <v-btn
         color="primary"
@@ -75,6 +76,7 @@
       type="submit"
       color="primary"
       class="mt-8"
+      :loading="loading"
       @click="handleSubmit"
     >
       Continuar
@@ -106,6 +108,10 @@ export default defineComponent({
     value: {
       type: Array as () => ArchiveInput[],
       required: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 
