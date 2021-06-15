@@ -73,10 +73,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   components: {},
-<<<<<<< Updated upstream
-
-  setup() {},
-=======
   setup() {},
   data() {
     return {
@@ -84,14 +80,11 @@ export default defineComponent({
       value: 30,
     }
   },
->>>>>>> Stashed changes
 })
 </script>
 
 <style lang="scss" scoped>
 @import './style.scss';
-<<<<<<< Updated upstream
-=======
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500&display=swap');
 
 .welcome {
@@ -244,5 +237,4 @@ export default defineComponent({
 // .progressbar li.active + li:after {
 //     background-color: #FF9700;
 // }
->>>>>>> Stashed changes
 </style>
