@@ -1,10 +1,4 @@
 <template>
-<<<<<<< Updated upstream
-  <v-navigation-drawer :mini-variant.sync="mini" app permanent color="#F5F5F7">
-    <v-list-item class="px-2">
-      <v-list-item-avatar>
-        <v-img src=""></v-img>
-=======
   <v-navigation-drawer
     :mini-variant.sync="mini"
     permanent
@@ -14,7 +8,6 @@
     <v-list-item class="px-2">
       <v-list-item-avatar>
         <img src="@/assets/img/icon.svg" alt="" />
->>>>>>> Stashed changes
       </v-list-item-avatar>
 
       <v-list-item-title>Logo</v-list-item-title>
