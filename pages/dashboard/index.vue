@@ -12,9 +12,9 @@
 
     <div class="projects">
       <div class="line-cards">
-        <div class="card">
+        <div class="card1">
           <h1>03</h1>
-          <p>Projetos aprovados</p>
+          <p>Projetos <br> aprovados</p>
         </div>
         <div class="card">
           <h1>03</h1>
@@ -29,6 +29,26 @@
       <div class="progress-card">
         <div class="info-proj">
           <h2>Site da Padaria Bella SP</h2>
+          <v-stepper alt-labels
+          style="box-shadow: 0px 0px 0px 0px !important; background: #f5f5f7;">
+            <v-stepper-header>
+              <v-stepper-step step="" style="padding: 24px 0px 24px 0px;">
+                Em análise
+              </v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step step="" style="padding: 24px 0px 24px 0px;">
+                Em andamento
+              </v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step step="" style="padding: 24px 0px 24px 0px;">
+                Concluído
+              </v-stepper-step>
+            </v-stepper-header>
+          </v-stepper>
           <!-- <div class="container">
             <ul class="progressbar">
                 <li class="active">Em Análise</li>
@@ -36,9 +56,10 @@
                 <li>Comcluído</li>
             </ul>
           </div> -->
-          <p><v-icon>mdi-phone</v-icon>Alguma dúvida?  Entre em contato com a equipe <a href="">aqui.</a></p>
+          <p><v-icon style="margin-right: 2px">mdi-phone</v-icon> Alguma dúvida?  Entre em contato com a equipe <a href="">aqui.</a></p>
         </div>
         <v-progress-circular
+            class="circular"
             :rotate="360"
             :size="100"
             :width="15"
@@ -57,7 +78,7 @@
             CADASTRAR NOVO PROJETO +
           </button>
         </div>
-        <img src="@/assets/img/ideia.png" alt="">
+        <img src="@/assets/img/ideia.png" alt="" class="img">
       </div>
     </div>
 
@@ -97,13 +118,31 @@ export default defineComponent({
   font-size: 18px;
   color: #9FA2B4;
   margin-right: 80px;
+  @media screen and (max-width: 900px) {
+    margin-right: 0;
+    width: 100%;
+  }
+
 }
 .info-welcome{
   display: block;
+  @media screen and (max-width: 900px) {
+    img{
+      text-align: center;
+      height: 250px;
+      width: 300px;
+    }
+  }
 }
+@media screen and (max-width: 900px) {
+    .info-welcome{
+      text-align: center;
+    }
+  }
 .projects{
   display: block;
   .line-cards{
+    // margin-left: 50px;
     h1{
       margin-left: 10px;
       margin-right: 20px;
@@ -115,18 +154,53 @@ export default defineComponent({
       margin-bottom: auto;
     }
     display: flex;
+    @media screen and (max-width: 600px) {
+      margin-left: 0px;
+      display: block;
+      text-align: center;
+    }
+  }
+}
+.card1{
+  background-color: #F5F5F7;
+  border-radius: 10px;
+  display: flex;
+  padding: 8px;
+  width: 203px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  h1{
+    font-size: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+    margin-top: 15px;
+    width: 100%;
   }
 }
 .card{
   background-color: #F5F5F7;
-  border-radius: 15px;
+  border-radius: 10px;
   display: flex;
-  width: 170px;
-  margin-left: 10px;
+  padding: 8px;
+  width: 203px;
+  margin-left: 3%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  h1{
+    font-size: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+    margin-top: 15px;
+    width: 100%;
+  }
 }
 .flex{
+  @media screen and (max-width: 900px) {
+    display: block;
+    margin-left: 0px;
+  }
   display: flex;
+  margin-left: 7%;
   font-family: 'Baloo Bhai 2', cursive;
 }
 
@@ -137,21 +211,36 @@ export default defineComponent({
   background-color: #F5F5F7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+
   .info-proj{
+    h2{
+      text-align: center;
+    }
     p{
-      width: 350px;
+      width: 400px;
       font-size: 15px;
       margin-top: 15px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
     }  
     a{
       text-decoration:none;
       color: #FF9700;
     }
+    
     // margin-right: 10px;
     display: block;
   }
+  .circular{
+    @media screen and (max-width: 600px) {
+      margin-left: 33%;
+    }
+  }
 }
-
 .idea{
   display: flex;
   margin-top: 20px;
@@ -159,79 +248,48 @@ export default defineComponent({
   background-color: #F5F5F7;
   padding: 30px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+  @media screen and (max-width: 600px) {
+    .img{
+      margin-top: 10%;
+      height: 150px;
+      width: 120px;
+      margin-left: 25%;
+    }
+  }
     .idea-text{
       margin-right: 30px;
-      width: 80%;
+      width: 100%;
+      @media screen and (max-width: 600px) {
+        text-align: center;
+      }
+      @media screen and (max-width: 900px) {
+        text-align: center;
+      }
       h2{
-      font-weight: bold;
+        font-weight: bold;
       }
       p{
         font-size: 20px;
-        width: 300px;
+        width: 100%;
+        @media screen and (max-width: 600px) {
+          width: 100%;
+          text-align: center;
+          margin-top: 10%;
+        }
+        
       }
       button{
         color: #FFF;
         background-color: #FF9700;
         padding: 10px;
         border-radius: 10px;
+        @media screen and (max-width: 600px) {
+          width: 100%;
+        }
       }
     }
   }
-
-  // .container {
-  //     width: 500px;
-      
-  //     //margin: 100px auto;
-  // }
-  // .progressbar {
-  //     // counter-reset: step;
-  // }
-  // .progressbar li {
-  //     // margin-right: 20px;
-  //     list-style-type: none;
-  //     width: 25%;
-  //     float: left;
-  //     font-size: 12px;
-  //     position: relative;
-  //     text-align: center;
-  //     text-transform: uppercase;
-  //     color: #7d7d7d;
-  // }
-  // .progressbar li:before {
-  //     width: 40px;
-  //     height: 40px;
-  //     content: counter(step);
-  //     counter-increment: step;
-  //     line-height: 30px;
-  //     border: 2px solid #7d7d7d;
-  //     display: block;
-  //     text-align: center;
-  //     margin: 0 auto 10px auto;
-  //     border-radius: 50%;
-  //     background-color: white;
-  // }
-  // .progressbar li:after {
-  //     width: 100%;
-  //     height: 2px;
-  //     content: '';
-  //     position: absolute;
-  //     background-color: #7d7d7d;
-  //     top: 15px;
-  //     left: -50%;
-  //     z-index: -1;
-  // }
-  // .progressbar li:first-child:after {
-  //     content: none;
-  // }
-  // .progressbar li.active {
-  //     color: #FF9700;
-  // }
-  // .progressbar li.active:before {
-  //     border-color: #FF9700;
-  // }
-  // .progressbar li.active + li:after {
-  //     background-color: #FF9700;
-  // }
-
-
 </style>
