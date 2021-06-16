@@ -51,7 +51,13 @@
               <v-stepper-step
                 step=""
                 style="padding: 24px 0px 24px 0px"
-                :complete="project.status === ProjectStatus.WAITING"
+                :complete="true"
+                :complete-icon="
+                  project.status === ProjectStatus.DOING ||
+                  project.status === ProjectStatus.FINISHED
+                    ? 'mdi-checkbox-marked-circle-outline'
+                    : 'mdi-checkbox'
+                "
               >
                 Em análise
               </v-stepper-step>
@@ -61,7 +67,15 @@
               <v-stepper-step
                 step=""
                 style="padding: 24px 0px 24px 0px"
-                :complete="project.status === ProjectStatus.DOING"
+                :complete="
+                  project.status === ProjectStatus.DOING ||
+                  project.status === ProjectStatus.FINISHED
+                "
+                :complete-icon="
+                  project.status === ProjectStatus.FINISHED
+                    ? 'mdi-checkbox-marked-circle-outline'
+                    : 'mdi-checkbox'
+                "
               >
                 Em andamento
               </v-stepper-step>
@@ -72,6 +86,7 @@
                 step=""
                 style="padding: 24px 0px 24px 0px"
                 :complete="project.status === ProjectStatus.FINISHED"
+                complete-icon="mdi-checkbox-marked-circle-outline"
               >
                 Concluído
               </v-stepper-step>

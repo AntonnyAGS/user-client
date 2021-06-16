@@ -18,7 +18,7 @@
       <v-textarea
         placeholder="Descrição do seu projeto..."
         class="mt-0 pt-0"
-        :value="value.email"
+        :value="value.description"
         :rules="rules.description"
         label="Descrição do seu projeto"
         background-color="white"
