@@ -3,9 +3,9 @@
     <div class="project__container">
       <div class="project__content">
         <ProjectStepper
-          :user.sync="user"
           :project.sync="project"
           :loading.sync="loading"
+          :archives.sync="archives"
           @submit="handleCreateProject"
         />
       </div>
@@ -18,10 +18,12 @@ import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 
 import { ProjectStepper } from '@/components/CreateProject'
 
-import { UserInput, ProjectInput } from '@/types'
+import { ArchiveInput, ProjectInput } from '@/types'
 
 import { ProjectService } from '@/services/ProjectService'
 import { useNotify } from '~/hooks/useNotify'
+import { FileFactory } from '~/factories'
+import { FileService } from '~/services'
 
 export default defineComponent({
   components: {
@@ -29,27 +31,33 @@ export default defineComponent({
   },
 
   setup() {
-    const showPassword = ref(false)
-
     const notify = useNotify()
 
     const { redirect } = useContext()
-
-    const user = ref<UserInput>({
-      email: '',
-      phone: '',
-      cpfOrCnpj: '',
-      name: '',
-      password: '',
-      confirmPassword: '',
-    })
 
     const project = ref<ProjectInput>({
       name: '',
       description: '',
     })
 
+    const archives = ref<[ArchiveInput] | []>([])
+
     const loading = ref(false)
+
+    const handleUploadFiles = async (projectId: string) => {
+      try {
+        const files = await FileFactory.fromInputToVars(archives.value)
+
+        const service = new FileService()
+
+        await service.create(projectId, files)
+      } catch (err) {
+        notify({
+          title: 'Erro ao subir arquivos',
+          type: 'error',
+        })
+      }
+    }
 
     const handleCreateProject = async () => {
       try {
@@ -57,8 +65,13 @@ export default defineComponent({
 
         const service = new ProjectService()
 
-        await service.create(project.value)
-        redirect('/')
+        const created = await service.create(project.value)
+
+        if (archives.value.length > 0) {
+          handleUploadFiles(created._id)
+        }
+
+        redirect('/projects')
       } catch (err) {
         notify({
           title: 'Erro ao cadastrar/logar usuário',
@@ -69,7 +82,7 @@ export default defineComponent({
       }
     }
 
-    return { showPassword, user, project, loading, handleCreateProject }
+    return { project, loading, handleCreateProject, archives }
   },
 })
 </script>

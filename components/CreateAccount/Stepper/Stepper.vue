@@ -102,7 +102,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const currentStep = ref(3)
+    const currentStep = ref(1)
 
     const notify = useNotify()
 

@@ -103,3 +103,11 @@ export function validateCpf(cpf: string) {
   }
   return true
 }
+
+export const formatNumber = (number: number, length: number): string => {
+  let result = '' + number.toString()
+  while (result.length < length) {
+    result = '0' + result
+  }
+  return result
+}

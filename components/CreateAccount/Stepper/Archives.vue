@@ -33,6 +33,7 @@
       style="border-radius: 0 !important"
       filled
     />
+
     <div class="d-flex" style="gap: 16px">
       <v-file-input
         v-model="file"
@@ -43,6 +44,7 @@
         style="border-radius: 0 !important"
         filled
         :show-size="1000"
+        accept="image/*,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf"
       />
       <v-btn
         color="primary"
@@ -74,6 +76,7 @@
       type="submit"
       color="primary"
       class="mt-8"
+      :loading="loading"
       @click="handleSubmit"
     >
       Continuar
@@ -106,6 +109,10 @@ export default defineComponent({
       type: Array as () => ArchiveInput[],
       required: true,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   setup(props, { emit }) {
@@ -118,9 +125,7 @@ export default defineComponent({
     }
 
     const addFile = () => {
-      const files = clone(props.value)
-
-      console.log(file.value)
+      const files = props.value
 
       files.push({
         fileName: fileName.value,

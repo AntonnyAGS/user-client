@@ -78,6 +78,7 @@ export default defineComponent({
 
     const rules = {
       name: [(v: string) => v.length > 4 || 'Digite um nome válido'],
+      description: [(v: string) => v.length > 8 || 'Digite uma descrição'],
     }
 
     const handleSubmit = () => {

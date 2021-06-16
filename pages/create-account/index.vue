@@ -22,6 +22,7 @@ import { UserInput, ProjectInput, ArchiveInput } from '@/types'
 import { ProjectService, FileService } from '@/services'
 import { useNotify } from '~/hooks/useNotify'
 import { FileFactory } from '~/factories'
+import { sleep } from '~/helpers'
 
 export default defineComponent({
   components: {
@@ -77,16 +78,27 @@ export default defineComponent({
 
         const created = await service.create(project.value)
 
-        handleUploadFiles(created._id)
+        if (archives.value.length > 0) {
+          handleUploadFiles(created._id)
+        }
+
+        await sleep(2000)
+
+        notify({
+          title: 'Projeto cadastrado!',
+          type: 'success',
+        })
+
+        await sleep(500)
+
         redirect('/')
       } catch (err) {
-        console.error(err)
         notify({
           title: 'Erro ao cadastrar projeto',
           type: 'error',
         })
       } finally {
-        loading.value = true
+        loading.value = false
       }
     }
 
@@ -97,6 +109,7 @@ export default defineComponent({
       loading,
       handleCreateProject,
       archives,
+      handleUploadFiles,
     }
   },
 })

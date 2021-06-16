@@ -17,5 +17,6 @@ export type Archive = {
   projectId: string
   fileName: string
   fileType: FileType
+  fileUrl: string
   tag: string
 }

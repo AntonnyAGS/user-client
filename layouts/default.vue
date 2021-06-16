@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <side-bar :items="items" />
-    <v-main>
-      <v-container fluid class="main-container fill-height">
+    <v-main class="main-container">
+      <v-container fluid class="fill-height pa-4">
         <nuxt />
         <notifications ignore-duplicates class="notification" />
       </v-container>
@@ -31,8 +31,8 @@ export default defineComponent({
   setup() {
     const items = ref<SidebarItem[]>([
       { to: '/dashboard', icon: 'mdi-home', title: 'Home' },
-      { to: '/dashboard', icon: 'mdi-lightbulb-outline', title: 'Projetos'},
-      { to: '/dashboard', icon: 'mdi-cog-outline', title: 'Configuração' },
+      { to: '/projects', icon: 'mdi-lightbulb-outline', title: 'Projetos' },
+      // { to: '/dashboard', icon: 'mdi-cog-outline', title: 'Configuração' },
     ])
 
     return {
@@ -100,7 +100,22 @@ html {
 }
 </style>
 <style lang="scss" scoped>
+@import '~vuetify/src/styles/styles.sass';
+
 .v-application {
   font-family: Montserrat !important;
+}
+
+.main-container {
+  padding: 0 !important;
+}
+
+@media #{map-get($display-breakpoints, 'lg-and-up')} {
+  html {
+    font-size: 16px;
+  }
+  .main-container {
+    padding-left: 56px !important;
+  }
 }
 </style>
