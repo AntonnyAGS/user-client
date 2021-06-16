@@ -6,7 +6,7 @@ export class FileFactory {
     return await Promise.all(
       files.map(async (file) => {
         const obj: ArchiveVars = {
-          fileName: file.fileName,
+          fileName: `${file.fileName}.${file.file?.name.split('.').pop()}`,
           fileType: file.fileType,
           base64: await toBase64(file.file),
         }
