@@ -39,6 +39,7 @@
           <p><v-icon>mdi-phone</v-icon>Alguma dúvida?  Entre em contato com a equipe <a href="">aqui.</a></p>
         </div>
         <v-progress-circular
+            style="margin-left: auto; "
             class="circular"
             :rotate="360"
             :size="100"
@@ -135,6 +136,7 @@ export default defineComponent({
     }
     display: flex;
     @media screen and (max-width: 600px) {
+      margin-left: 0px;
       display: block;
       text-align: center;
     }
@@ -148,6 +150,7 @@ export default defineComponent({
   margin-left: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   @media screen and (max-width: 600px) {
+    margin-left: 0px;
     margin-top: 15px;
     width: 100%;
   }
@@ -155,8 +158,10 @@ export default defineComponent({
 .flex{
   @media screen and (max-width: 900px) {
     display: block;
+    margin-left: 0px;
   }
   display: flex;
+  margin-left: 7%;
   font-family: 'Baloo Bhai 2', cursive;
 }
 
@@ -239,7 +244,6 @@ export default defineComponent({
         padding: 10px;
         border-radius: 10px;
         @media screen and (max-width: 600px) {
-          margin-left: 10%;
           width: 100%;
         }
       }

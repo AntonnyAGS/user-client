@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :mini-variant.sync="mini" app permanent color="#F5F5F7">
+  <v-navigation-drawer :mini-variant.sync="mini" absolute color="#F5F5F7">
     
     <v-list-item class="px-2">
       <v-list-item-avatar>
