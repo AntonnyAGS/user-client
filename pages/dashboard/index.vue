@@ -12,9 +12,9 @@
 
     <div class="projects">
       <div class="line-cards">
-        <div class="card">
+        <div class="card1">
           <h1>03</h1>
-          <p>Projetos aprovados</p>
+          <p>Projetos <br> aprovados</p>
         </div>
         <div class="card">
           <h1>03</h1>
@@ -29,6 +29,26 @@
       <div class="progress-card">
         <div class="info-proj">
           <h2>Site da Padaria Bella SP</h2>
+          <v-stepper alt-labels
+          style="box-shadow: 0px 0px 0px 0px !important; background: #f5f5f7;">
+            <v-stepper-header>
+              <v-stepper-step step="" style="padding: 24px 0px 24px 0px;">
+                Em análise
+              </v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step step="" style="padding: 24px 0px 24px 0px;">
+                Em andamento
+              </v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step step="" style="padding: 24px 0px 24px 0px;">
+                Concluído
+              </v-stepper-step>
+            </v-stepper-header>
+          </v-stepper>
           <!-- <div class="container">
             <ul class="progressbar">
                 <li class="active">Em Análise</li>
@@ -36,10 +56,9 @@
                 <li>Comcluído</li>
             </ul>
           </div> -->
-          <p><v-icon>mdi-phone</v-icon>Alguma dúvida?  Entre em contato com a equipe <a href="">aqui.</a></p>
+          <p><v-icon style="margin-right: 2px">mdi-phone</v-icon> Alguma dúvida?  Entre em contato com a equipe <a href="">aqui.</a></p>
         </div>
         <v-progress-circular
-            style="margin-left: auto; "
             class="circular"
             :rotate="360"
             :size="100"
@@ -123,7 +142,7 @@ export default defineComponent({
 .projects{
   display: block;
   .line-cards{
-    margin-left: 50px;
+    // margin-left: 50px;
     h1{
       margin-left: 10px;
       margin-right: 20px;
@@ -142,13 +161,33 @@ export default defineComponent({
     }
   }
 }
+.card1{
+  background-color: #F5F5F7;
+  border-radius: 10px;
+  display: flex;
+  padding: 8px;
+  width: 203px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  h1{
+    font-size: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+    margin-top: 15px;
+    width: 100%;
+  }
+}
 .card{
   background-color: #F5F5F7;
-  border-radius: 15px;
+  border-radius: 10px;
   display: flex;
-  width: 170px;
-  margin-left: 10px;
+  padding: 8px;
+  width: 203px;
+  margin-left: 3%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  h1{
+    font-size: 40px;
+  }
   @media screen and (max-width: 600px) {
     margin-left: 0px;
     margin-top: 15px;
@@ -177,25 +216,29 @@ export default defineComponent({
   }
 
   .info-proj{
+    h2{
+      text-align: center;
+    }
     p{
-      width: 350px;
+      width: 400px;
       font-size: 15px;
       margin-top: 15px;
       @media screen and (max-width: 600px) {
-        width: 200px;
+        width: 100%;
       }
     }  
     a{
       text-decoration:none;
       color: #FF9700;
     }
+    
     // margin-right: 10px;
     display: block;
   }
-}
-.circular{
-  @media screen and (max-width: 600px) {
-    margin-left: 25%;
+  .circular{
+    @media screen and (max-width: 600px) {
+      margin-left: 33%;
+    }
   }
 }
 .idea{
