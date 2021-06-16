@@ -16,8 +16,8 @@ $content-radius: 8px;
   align-items: center;
   @media screen and (max-width: 700px) {
     padding: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
+    max-width: 100%;
+    margin: 0px;
   }
   &__container {
     margin-top: auto;
@@ -30,6 +30,10 @@ $content-radius: 8px;
     border-radius: $content-radius;
 
     padding: 30px 30px 30px 30px;
+    @media screen and (max-width: 700px) {
+      padding: 0px 0px 0px 0px !important;
+      margin: 0px;
+    }
   }
 
   &__button{
