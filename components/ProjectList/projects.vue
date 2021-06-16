@@ -5,9 +5,8 @@
         <v-data-table
           :headers="headers"
           :items="projects"
-          style="background: #f5f5f7; width: 100%; height: 100%"
+          style="background: #f5f5f7; width: 100%; height: 100%;"
           class="elevation-1"
-          locale="fr"
         >
           <template v-slot:item.status="{ item }">
             <v-chip
