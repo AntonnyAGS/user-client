@@ -106,7 +106,7 @@
         </div>
 
         <div
-          class="progress-circular-container"
+          class="progress-circular-container ma-auto"
           :style="{ 'background-color': StatusColor[project.status] }"
         >
           <v-progress-circular
