@@ -2,7 +2,7 @@
   <!-- <div class="dashboard">Em breve</div> -->
   <div class="flex">
     <div class="welcome">
-      <h1>Bem Vindo!</h1>
+      <h1>Boas-vindas!</h1>
       <div class="info-welcome">
         <p>
           Aqui você consegue ter acesso ao seu projeto, poderá acompanhar o
@@ -21,14 +21,14 @@
               formatNumber(filteredProjects(ProjectStatus.APPROVED).length, 2)
             }}
           </h1>
-          <p>
+          <p> 
             Projetos <br />
-            aprovados
+            Cadastrados
           </p>
         </div>
         <div class="card">
           <h1>{{ formatNumber(projects.length, 2) }}</h1>
-          <p>Projetos cadastrados</p>
+          <p>Projetos Aprovados</p>
         </div>
         <div class="card">
           <h1>
@@ -36,7 +36,7 @@
               formatNumber(filteredProjects(ProjectStatus.REPROVED).length, 2)
             }}
           </h1>
-          <p>Projetos reprovados</p>
+          <p>Projetos Reprovados</p>
         </div>
       </div>
 

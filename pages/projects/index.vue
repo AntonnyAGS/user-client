@@ -2,8 +2,8 @@
   <div class="projects">
     <div class="projects__header">
       <cover-card
-        title="Gerencie seus projetos"
-        description="Gerencie os projetos de extensão de sua instituição."
+        title="Acompanhe seus projetos"
+        description="Acompanhe seus projetos de extensão de sua instituição."
         image-url="whiteboard.svg"
         class="projects__cover-card"
       />
@@ -26,7 +26,7 @@
             <v-btn icon>
               <v-icon
                 small
-                color="white"
+                color="#9FA2B4"
                 @click=";(showSearch = !showSearch), (search = '')"
               >
                 fas fa-search
@@ -112,15 +112,15 @@ export default defineComponent({
     const showCreateAdmin = ref(false)
 
     const headers = [
-      { text: 'Nome', value: 'name', sortable: true, align: 'center' },
+      { text: 'Nome', value: 'name', sortable: true, align: 'left'},
       {
         text: 'Descrição',
         value: 'description',
         sortable: true,
-        align: 'center',
+        align: 'left',
         width: '30%',
       },
-      { text: 'Status', value: 'status', sortable: true, align: 'center' },
+      { text: 'Status', value: 'status', sortable: true, align: 'left' },
       // { text: '', value: 'action', sortable: false, align: 'center' },
     ]
 

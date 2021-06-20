@@ -2,7 +2,7 @@
   <v-menu v-model="showMenu" offset-y left :close-on-content-click="false">
     <template v-slot:activator="{ on }">
       <v-btn icon v-on="on">
-        <v-icon small color="white">
+        <v-icon small color="#9FA2B4">
           fas fa-filter
         </v-icon>
       </v-btn>
