@@ -42,8 +42,8 @@ import { defineComponent, ref, computed } from '@nuxtjs/composition-api'
 
 import { ProjectService, DocService, ScoreService } from '@/services'
 import { UserPersonText, formatCnpj, formatCpf, StatusText, StatusColor, FileText } from '@/helpers'
-import { PersonType, ProjectStatus, UserRole } from '@/enums'
-import moment from 'moment'
+import { PersonType, ProjectStatus, UserRole } from '@/enum'
+// import moment from 'moment'
 import { useNamespacedState } from 'vuex-composition-helpers'
 
 import { State } from '@/store/groups'
@@ -162,7 +162,6 @@ export default defineComponent({
       StatusColor,
       files,
       FileText,
-      moment,
       groups,
       handleManageStatus,
       ProjectStatus,
