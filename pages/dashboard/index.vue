@@ -155,49 +155,49 @@ import { Project } from '~/types'
 
 export default defineComponent({
   components: {},
-  setup() {
-    useLoadProjects()
+  // setup() {
+  //   useLoadProjects()
 
-    const { projects } = useNamespacedState<State>('projects', ['projects'])
+  //   const { projects } = useNamespacedState<State>('projects', ['projects'])
 
-    const project = computed(() => {
-      if (!projects.value) {
-        return null
-      }
-      return projects.value[projects.value.length - 1]
-    })
+  //   const project = computed(() => {
+  //     if (!projects.value) {
+  //       return null
+  //     }
+  //     return projects.value[projects.value.length - 1]
+  //   })
 
-    const filteredProjects = (status: ProjectStatus) => {
-      return projects.value.filter((project) => project.status === status)
-    }
+  //   const filteredProjects = (status: ProjectStatus) => {
+  //     return projects.value.filter((project) => project.status === status)
+  //   }
 
-    const getDiffDays = (project: Project): number => {
-      if (!project) {
-        return 0
-      }
-      const diffDays = dayjs().diff(dayjs(project.createdAt), 'days')
-      return diffDays
-    }
-    const getProgress = (project: Project): number => {
-      if (!project) {
-        return 0
-      }
-      const diffDays = getDiffDays(project)
-      const porcent = (diffDays * 100) / 30
-      return porcent
-    }
+  //   const getDiffDays = (project: Project): number => {
+  //     if (!project) {
+  //       return 0
+  //     }
+  //     const diffDays = dayjs().diff(dayjs(project.createdAt), 'days')
+  //     return diffDays
+  //   }
+  //   const getProgress = (project: Project): number => {
+  //     if (!project) {
+  //       return 0
+  //     }
+  //     const diffDays = getDiffDays(project)
+  //     const porcent = (diffDays * 100) / 30
+  //     return porcent
+  //   }
 
-    return {
-      project,
-      projects,
-      formatNumber,
-      filteredProjects,
-      ProjectStatus,
-      getDiffDays,
-      getProgress,
-      StatusColor,
-    }
-  },
+  //   return {
+  //     project,
+  //     projects,
+  //     formatNumber,
+  //     filteredProjects,
+  //     ProjectStatus,
+  //     getDiffDays,
+  //     getProgress,
+  //     StatusColor,
+  //   }
+  // },
 })
 </script>
 
