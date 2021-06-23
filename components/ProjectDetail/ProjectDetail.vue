@@ -1,66 +1,66 @@
 <template>
-<div>
-    <div class="breadcrubs">
-        <div>Você esta aqui: </div> 
-        <v-breadcrumbs :items="items" style="padding: 0px 0px 0px 10px">
-        <template v-slot:divider>
-            <v-icon>mdi-chevron-right</v-icon>
-        </template>
-        </v-breadcrumbs>
-    </div>
-
-    <div class="client__project">
-        {{ value.name }}
-        <v-card flat>
-            <template #[`item.status`]="{ item }">
-                <v-chip :color="StatusColor[item.status]" class="white--text">
-                {{ StatusText[item.status] }}
-                </v-chip>
+    <div>
+        <div class="breadcrubs">
+            <div>Você esta aqui: </div> 
+            <v-breadcrumbs :items="items" style="padding: 0px 0px 0px 10px">
+            <template v-slot:divider>
+                <v-icon>mdi-chevron-right</v-icon>
             </template>
-        </v-card>
-    </div>
-    <div class="description">
-        <v-card flat>
-          <v-card-text style="padding: 0px; font-size: 14px; color: black">{{ value.description }}</v-card-text>
-        </v-card>
-    </div>
-    <!-- <div class="description">{{ value.description }}</div> -->
-    
-    <div class="title">Dados do cliente</div>
-    <div class="client__description">
-        <v-card flat>
-          <v-card-text style="padding: 0px; font-size: 14px; color: black">{{ value.client }}</v-card-text>
-        </v-card>
-    </div>
-    <!-- <div class="client__description">{{ value.client }}</div> -->
+            </v-breadcrumbs>
+        </div>
 
-    <div class="title">Grupo</div>
-    <div class="client__grupo">
-        <v-chip
-            class="mt-2"
-            color="primary"
+        <div class="client__project">
+            {{ value.name }}
+            <v-card flat>
+                <template #[`item.status`]="{ item }">
+                    <v-chip :color="StatusColor[item.status]" class="white--text">
+                    {{ StatusText[item.status] }}
+                    </v-chip>
+                </template>
+            </v-card>
+        </div>
+        <div class="description">
+            <v-card flat>
+            <v-card-text style="padding: 0px; font-size: 14px; color: black">{{ value.description }}</v-card-text>
+            </v-card>
+        </div>
+        <!-- <div class="description">{{ value.description }}</div> -->
+        
+        <div class="title">Dados do cliente</div>
+        <div class="client__description">
+            <v-card flat>
+            <v-card-text style="padding: 0px; font-size: 14px; color: black">{{ value.client }}</v-card-text>
+            </v-card>
+        </div>
+        <!-- <div class="client__description">{{ value.client }}</div> -->
+
+        <div class="title">Grupo</div>
+        <div class="client__grupo">
+            <v-chip
+                class="mt-2"
+                color="primary"
+                >
+                Grupo dahora
+            </v-chip>
+        </div>
+
+        <div class="title">Documentos</div>
+        <div class="client__doc">
+        <v-list width="100%">
+            <v-list-item
+            v-for="(file, index) in archives"
+            :key="index"
+            width="100%"
             >
-            Grupo dahora
-        </v-chip>
+            <v-list-item-content>
+                <v-list-item-title>
+                {{ file.fileName }}
+                </v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+        </v-list>
+        </div>
     </div>
-
-    <div class="title">Documentos</div>
-    <div class="client__doc">
-    <v-list width="100%">
-        <v-list-item
-          v-for="(file, index) in archives"
-          :key="index"
-          width="100%"
-        >
-          <v-list-item-content>
-            <v-list-item-title>
-              {{ file.fileName }}
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-    </v-list>
-    </div>
- </div>
 </template>
 
 <script lang="ts">
