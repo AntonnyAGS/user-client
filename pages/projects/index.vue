@@ -121,7 +121,7 @@ export default defineComponent({
         width: '30%',
       },
       { text: 'Status', value: 'status', sortable: true, align: 'left' },
-      // { text: '', value: 'action', sortable: false, align: 'center' },
+      { text: '', value: 'action', sortable: false, align: 'center' }
     ]
 
     const filteredProjects = computed(() => {
