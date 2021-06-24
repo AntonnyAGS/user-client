@@ -37,7 +37,7 @@ export class ProjectService {
       const { data } = await axios.get<Project>(`/project/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
-        }
+        } 
       })
       return data
     } catch (error) {
