@@ -49,7 +49,7 @@ import { useNamespacedState } from 'vuex-composition-helpers'
 import { State } from '@/store/groups'
 import { State as UserState } from '@/store/user'
 import { Header as ProjectHeader, Client, Groups, Docs } from '@/components/Projects'
-import { useLoadGroups } from '@/hooks'
+import { useLoadGroups } from '@/hooks' 
 import { Project, File, Group, Score } from '~/types'
 
 export default defineComponent({

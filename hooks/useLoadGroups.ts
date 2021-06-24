@@ -1,7 +1,8 @@
 import { useNamespacedActions } from 'vuex-composition-helpers'
-import { Actions } from '@/store/groups'
-import { ref, onMounted } from '@nuxtjs/composition-api'
 
+import { Actions } from '@/store/groups'
+
+import { ref, onMounted } from '@nuxtjs/composition-api'
 import { GroupService } from '@/services'
 
 export function useLoadGroups () {
