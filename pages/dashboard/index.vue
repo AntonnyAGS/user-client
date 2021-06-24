@@ -105,7 +105,10 @@
           </p>
         </div>
 
-        
+        <div
+          class="progress-circular-container ma-auto"
+          :style="{ 'background-color': StatusColor[project.status] }"
+        >
           <v-progress-circular
             :rotate="360"
             :size="100"
@@ -113,18 +116,14 @@
             :value="getProgress(project)"
             :color="StatusColor[project.status]"
           >
-          <div
-            class="progress-circular-container ma-auto"
-            :style="{ 'background-color': StatusColor[project.status] }"
-          >
             <span
               class="white--text"
               style="font-weight: 600; font-size: 1.3rem"
             >
               {{ getDiffDays(project) }}
             </span>
-          </div>
           </v-progress-circular>
+        </div>
       </div>
 
       <div class="idea">
