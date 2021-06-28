@@ -2,36 +2,96 @@
   <!-- <div class="dashboard">Em breve</div> -->
   <div class="flex">
     <div class="welcome">
-      <h1>Bem Vindo!</h1>
+      <h1>Boas-vindas!</h1>
       <div class="info-welcome">
         <p>
           Aqui você consegue ter acesso ao seu projeto, poderá acompanhar o
           status dele, e após a finalização você poderá avaliá-lo. E também pode
           adicionar novos projetos.
         </p>
-        <!-- <img src="@/assets/img/welcome.png" alt="" /> -->
+        <img src="@/assets/img/welcome.png" alt="" />
       </div>
     </div>
 
-    <div class="projects">
+    <div v-if="project && projects" class="projects">
       <div class="line-cards">
-        <div class="card">
-          <h1>03</h1>
-          <p>Projetos aprovados</p>
+        <div class="card1">
+          <h1>
+            {{
+              formatNumber(filteredProjects(ProjectStatus.APPROVED).length, 2)
+            }}
+          </h1>
+          <p> 
+            Projetos <br />
+            Cadastrados
+          </p>
         </div>
         <div class="card">
-          <h1>03</h1>
-          <p>Projetos cadastrados</p>
+          <h1>{{ formatNumber(projects.length, 2) }}</h1>
+          <p>Projetos Aprovados</p>
         </div>
         <div class="card">
-          <h1>03</h1>
-          <p>Projetos reprovados</p>
+          <h1>
+            {{
+              formatNumber(filteredProjects(ProjectStatus.REPROVED).length, 2)
+            }}
+          </h1>
+          <p>Projetos Reprovados</p>
         </div>
       </div>
 
       <div class="progress-card">
         <div class="info-proj">
-          <h2>Site da Padaria Bella SP</h2>
+          <h2>{{ project.name }}</h2>
+          <v-stepper
+            alt-labels
+            style="box-shadow: 0px 0px 0px 0px !important; background: #f5f5f7"
+          >
+            <v-stepper-header>
+              <v-stepper-step
+                step=""
+                style="padding: 24px 0px 24px 0px"
+                :complete="true"
+                :complete-icon="
+                  project.status === ProjectStatus.DOING ||
+                  project.status === ProjectStatus.FINISHED
+                    ? 'mdi-checkbox-marked-circle-outline'
+                    : 'mdi-checkbox'
+                "
+              >
+                Em análise
+              </v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step
+                step=""
+                style="padding: 24px 0px 24px 0px"
+                :complete="
+                  project.status === ProjectStatus.DOING ||
+                  project.status === ProjectStatus.FINISHED
+                "
+                :complete-icon="
+                  project.status === ProjectStatus.FINISHED
+                    ? 'mdi-checkbox-marked-circle-outline'
+                    : 'mdi-checkbox'
+                "
+              >
+                Em andamento
+              </v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step
+                step=""
+                style="padding: 24px 0px 24px 0px"
+                :complete="project.status === ProjectStatus.FINISHED"
+                complete-icon="mdi-checkbox-marked-circle-outline"
+              >
+                Concluído
+              </v-stepper-step>
+            </v-stepper-header>
+          </v-stepper>
           <!-- <div class="container">
             <ul class="progressbar">
                 <li class="active">Em Análise</li>
@@ -40,28 +100,41 @@
             </ul>
           </div> -->
           <p>
-            <v-icon class="mr-2">mdi-phone</v-icon>Alguma dúvida? Entre em
-            contato com a equipe <a href="">aqui.</a>
+            <v-icon style="margin-right: 2px">mdi-phone</v-icon> Alguma dúvida?
+            Entre em contato com a equipe <a href="">aqui.</a>
           </p>
         </div>
-        <v-progress-circular
-          :rotate="360"
-          :size="100"
-          :width="15"
-          :value="value"
-          color="#FF9700"
+
+        <div
+          class="progress-circular-container ma-auto"
+          :style="{ 'background-color': StatusColor[project.status] }"
         >
-          30%
-        </v-progress-circular>
+          <v-progress-circular
+            :rotate="360"
+            :size="100"
+            :width="15"
+            :value="getProgress(project)"
+            :color="StatusColor[project.status]"
+          >
+            <span
+              class="white--text"
+              style="font-weight: 600; font-size: 1.3rem"
+            >
+              {{ getDiffDays(project) }}
+            </span>
+          </v-progress-circular>
+        </div>
       </div>
 
       <div class="idea">
         <div class="idea-text">
           <h2>Surgiu uma ideia?</h2>
           <p>Clique no botão abaixo e cadastre um novo projeto.</p>
-          <button>CADASTRAR NOVO PROJETO +</button>
+          <v-btn link color="primary" to="/create-project">
+            CADASTRAR NOVO PROJETO +
+          </v-btn>
         </div>
-        <!-- <img src="@/assets/img/ideia.png" alt="" /> -->
+        <img src="@/assets/img/ideia.png" alt="" class="img" />
       </div>
     </div>
   </div>
@@ -69,15 +142,60 @@
 
 <script lang="ts">
 // Libs
-import { defineComponent } from '@nuxtjs/composition-api'
+import { computed, defineComponent } from '@nuxtjs/composition-api'
+
+import { useNamespacedState } from 'vuex-composition-helpers'
+
+import { State } from '@/store/projects'
+import { formatNumber, StatusColor } from '@/helpers'
+import dayjs from 'dayjs'
+import { useLoadProjects } from '~/hooks'
+import { ProjectStatus } from '~/enum'
+import { Project } from '~/types'
 
 export default defineComponent({
   components: {},
-  setup() {},
-  data() {
+  setup() {
+    useLoadProjects()
+
+    const { projects } = useNamespacedState<State>('projects', ['projects'])
+
+    const project = computed(() => {
+      if (!projects.value) {
+        return null
+      }
+      return projects.value[projects.value.length - 1]
+    })
+
+    const filteredProjects = (status: ProjectStatus) => {
+      return projects.value.filter((project) => project.status === status)
+    }
+
+    const getDiffDays = (project: Project): number => {
+      if (!project) {
+        return 0
+      }
+      const diffDays = dayjs().diff(dayjs(project.createdAt), 'days')
+      return diffDays
+    }
+    const getProgress = (project: Project): number => {
+      if (!project) {
+        return 0
+      }
+      const diffDays = getDiffDays(project)
+      const porcent = (diffDays * 100) / 30
+      return porcent
+    }
+
     return {
-      interval: {},
-      value: 30,
+      project,
+      projects,
+      formatNumber,
+      filteredProjects,
+      ProjectStatus,
+      getDiffDays,
+      getProgress,
+      StatusColor,
     }
   },
 })
@@ -98,13 +216,30 @@ export default defineComponent({
   font-size: 18px;
   color: #9fa2b4;
   margin-right: 80px;
+  @media screen and (max-width: 900px) {
+    margin-right: 0;
+    width: 100%;
+  }
 }
 .info-welcome {
   display: block;
+  @media screen and (max-width: 900px) {
+    img {
+      text-align: center;
+      height: 250px;
+      width: 300px;
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  .info-welcome {
+    text-align: center;
+  }
 }
 .projects {
   display: block;
   .line-cards {
+    // margin-left: 50px;
     h1 {
       margin-left: 10px;
       margin-right: 20px;
@@ -116,47 +251,93 @@ export default defineComponent({
       margin-bottom: auto;
     }
     display: flex;
+    @media screen and (max-width: 600px) {
+      margin-left: 0px;
+      display: block;
+      text-align: center;
+    }
+  }
+}
+.card1 {
+  background-color: #f5f5f7;
+  border-radius: 10px;
+  display: flex;
+  padding: 8px;
+  width: 203px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  h1 {
+    font-size: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+    margin-top: 15px;
+    width: 100%;
   }
 }
 .card {
   background-color: #f5f5f7;
-  border-radius: 15px;
-  padding: 5px;
+  border-radius: 10px;
   display: flex;
-  width: 170px;
-  margin-left: 10px;
+  padding: 8px;
+  width: 203px;
+  margin-left: 3%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  h1 {
+    font-size: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+    margin-top: 15px;
+    width: 100%;
+  }
 }
 .flex {
-  min-width: 100% !important;
+  @media screen and (max-width: 900px) {
+    display: block;
+    margin-left: 0px;
+  }
   display: flex;
-  flex-shrink: 0;
+  margin-left: 7%;
   font-family: 'Baloo Bhai 2', cursive;
 }
 
 .progress-card {
   padding: 30px;
   display: flex;
-  gap: 16px;
   margin-top: 20px;
   background-color: #f5f5f7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+
   .info-proj {
+    h2 {
+      text-align: center;
+    }
     p {
-      width: 350px;
+      width: 400px;
       font-size: 15px;
       margin-top: 15px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
     }
     a {
       text-decoration: none;
       color: #ff9700;
     }
+
     // margin-right: 10px;
     display: block;
   }
+  .circular {
+    @media screen and (max-width: 600px) {
+      margin-left: 33%;
+    }
+  }
 }
-
 .idea {
   display: flex;
   margin-top: 20px;
@@ -164,77 +345,47 @@ export default defineComponent({
   background-color: #f5f5f7;
   padding: 30px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
+  @media screen and (max-width: 600px) {
+    .img {
+      margin-top: 10%;
+      height: 150px;
+      width: 120px;
+      margin-left: 25%;
+    }
+  }
   .idea-text {
     margin-right: 30px;
-    width: 80%;
+    width: 100%;
+    @media screen and (max-width: 600px) {
+      text-align: center;
+    }
+    @media screen and (max-width: 900px) {
+      text-align: center;
+    }
     h2 {
       font-weight: bold;
     }
     p {
       font-size: 20px;
-      width: 300px;
+      width: 100%;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+        text-align: center;
+        margin-top: 10%;
+      }
     }
     button {
       color: #fff;
       background-color: #ff9700;
       padding: 10px;
       border-radius: 10px;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
     }
   }
 }
-
-// .container {
-//     width: 500px;
-
-//     //margin: 100px auto;
-// }
-// .progressbar {
-//     // counter-reset: step;
-// }
-// .progressbar li {
-//     // margin-right: 20px;
-//     list-style-type: none;
-//     width: 25%;
-//     float: left;
-//     font-size: 12px;
-//     position: relative;
-//     text-align: center;
-//     text-transform: uppercase;
-//     color: #7d7d7d;
-// }
-// .progressbar li:before {
-//     width: 40px;
-//     height: 40px;
-//     content: counter(step);
-//     counter-increment: step;
-//     line-height: 30px;
-//     border: 2px solid #7d7d7d;
-//     display: block;
-//     text-align: center;
-//     margin: 0 auto 10px auto;
-//     border-radius: 50%;
-//     background-color: white;
-// }
-// .progressbar li:after {
-//     width: 100%;
-//     height: 2px;
-//     content: '';
-//     position: absolute;
-//     background-color: #7d7d7d;
-//     top: 15px;
-//     left: -50%;
-//     z-index: -1;
-// }
-// .progressbar li:first-child:after {
-//     content: none;
-// }
-// .progressbar li.active {
-//     color: #FF9700;
-// }
-// .progressbar li.active:before {
-//     border-color: #FF9700;
-// }
-// .progressbar li.active + li:after {
-//     background-color: #FF9700;
-// }
 </style>

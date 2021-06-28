@@ -18,7 +18,7 @@
       <v-textarea
         placeholder="Descrição do seu projeto..."
         class="mt-0 pt-0"
-        :value="value.email"
+        :value="value.description"
         :rules="rules.description"
         label="Descrição do seu projeto"
         background-color="white"
@@ -78,6 +78,7 @@ export default defineComponent({
 
     const rules = {
       name: [(v: string) => v.length > 4 || 'Digite um nome válido'],
+      description: [(v: string) => v.length > 8 || 'Digite uma descrição'],
     }
 
     const handleSubmit = () => {

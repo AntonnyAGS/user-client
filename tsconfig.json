@@ -26,7 +26,8 @@
     "types": [
       "@nuxt/types",
       "@types/node",
-      "@types/vue-the-mask"
+      "@types/vue-the-mask",
+      "vuetify"
     ]
   },
   "exclude": [

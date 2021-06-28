@@ -16,3 +16,7 @@ export type ProjectInput = {
   name: string
   description: string
 }
+
+export type ProjectsFilter = {
+  status: ProjectStatus[]
+}

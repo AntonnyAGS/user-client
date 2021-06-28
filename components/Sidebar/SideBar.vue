@@ -1,16 +1,17 @@
 <template>
   <v-navigation-drawer
     :mini-variant.sync="mini"
-    permanent
+    absolute
     color="#F5F5F7"
-    fixed
+    expand-on-hover
   >
     <v-list-item class="px-2">
       <v-list-item-avatar>
-        <!-- <img src="@/assets/img/icon.svg" alt="" /> -->
+        <img src="@/assets/img/icon.svg" alt="" />
       </v-list-item-avatar>
-
-      <v-list-item-title>Logo</v-list-item-title>
+      <v-list-item-title>
+        <h5>Fabrica de software</h5>
+      </v-list-item-title>
 
       <v-btn icon @click.stop="mini = !mini">
         <v-icon>mdi-chevron-left</v-icon>
@@ -20,7 +21,7 @@
     <v-divider></v-divider>
 
     <v-list dense>
-      <v-list-item v-for="item in items" :key="item.title" class="mt" link>
+      <v-list-item v-for="item in items" :key="item.title" link :to="item.to">
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
@@ -84,8 +85,4 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import './style.scss';
-
-.mt {
-  margin-top: 16px;
-}
 </style>
