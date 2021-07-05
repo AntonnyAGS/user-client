@@ -18,7 +18,7 @@
         <div class="card1">
           <h1>
             {{
-              formatNumber(filteredProjects(ProjectStatus.APPROVED).length, 2)
+              formatNumber(projects.length, 2)
             }}
           </h1>
           <p> 
@@ -27,7 +27,11 @@
           </p>
         </div>
         <div class="card">
-          <h1>{{ formatNumber(projects.length, 2) }}</h1>
+          <h1>
+            {{
+              formatNumber(filteredProjects(ProjectStatus.APPROVED).length, 2)
+            }}
+          </h1>
           <p>Projetos Aprovados</p>
         </div>
         <div class="card">
